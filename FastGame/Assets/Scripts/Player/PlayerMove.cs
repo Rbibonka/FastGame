@@ -1,54 +1,58 @@
 using UnityEngine;
 
-[RequireComponent(typeof(Rigidbody2D))]
-public class PlayerMove : CharacterMove
+namespace Player
 {
-    [Range(0, 20)]
-    [SerializeField]
-    private float characterSpeed = 5f;
-
-    private Rigidbody2D characterBody;
-
-    private Vector2 moveInput;
-
-    private bool LookAtRight = true;
-
-    private void Start()
+    [RequireComponent(typeof(Rigidbody2D))]
+    public class PlayerMove : CharacterMove
     {
-        characterBody = GetComponent<Rigidbody2D>();
-    }
+        [Range(0, 20)]
+        [SerializeField]
+        private float characterSpeed = 5f;
 
-    private void Update()
-    {
-        if (!LookAtRight && moveInput.x > 0)
+        private Rigidbody2D characterBody;
+
+        private Vector2 moveInput;
+
+        private bool LookAtRight = true;
+
+        private void Start()
         {
-            Flip();
-        }else if (LookAtRight && moveInput.x < 0)
-        {
-            Flip();
+            characterBody = GetComponent<Rigidbody2D>();
         }
-    }
 
-     void FixedUpdate()
-    {
-        moveInput = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
-        
-        Moving();
-    }
+        private void Update()
+        {
+            if (!LookAtRight && moveInput.x > 0)
+            {
+                Flip();
+            }
+            else if (LookAtRight && moveInput.x < 0)
+            {
+                Flip();
+            }
+        }
 
-    protected override void Flip()
-    {
-        LookAtRight = !LookAtRight;
+        void FixedUpdate()
+        {
+            moveInput = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
 
-        Vector2 scaler = transform.localScale;
+            Moving();
+        }
 
-        scaler.x *= -1;
+        protected override void Flip()
+        {
+            LookAtRight = !LookAtRight;
 
-        transform.localScale = scaler;
-    }
+            Vector2 scaler = transform.localScale;
 
-    protected override void Moving()
-    {
-        characterBody.velocity = new Vector2(moveInput.x * characterSpeed, moveInput.y * characterSpeed);
+            scaler.x *= -1;
+
+            transform.localScale = scaler;
+        }
+
+        protected override void Moving()
+        {
+            characterBody.velocity = new Vector2(moveInput.x * characterSpeed, moveInput.y * characterSpeed);
+        }
     }
 }
