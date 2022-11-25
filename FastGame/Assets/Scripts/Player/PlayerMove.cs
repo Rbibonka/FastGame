@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Player
+namespace Game
 {
     [RequireComponent(typeof(Rigidbody2D))]
     public class PlayerMove : CharacterMove

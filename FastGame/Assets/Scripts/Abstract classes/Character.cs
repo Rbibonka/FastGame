@@ -2,9 +2,7 @@ using UnityEngine;
 
 public abstract class Character : MonoBehaviour
 {
-    protected abstract void GiveDamage();
-
-    protected abstract void TakeExperience();
+    protected abstract void TakeExperience(float experience);
 
     protected abstract void RaiseLevel();
 

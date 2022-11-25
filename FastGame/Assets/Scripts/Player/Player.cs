@@ -1,36 +1,51 @@
 using UnityEngine;
 
-namespace Player
+namespace Game
 {
     public class Player : Character
     {
+        [Header("Properties player")]
         [SerializeField]
-        private int health = 0;
+        private int healths;
 
         [SerializeField]
-        private int damage = 0;
+        private int damage;
 
-        protected override void Dead()
+        [SerializeField]
+        private float experience;
+
+        [Header("Support class")]
+        [SerializeField]
+        private PlayerParametersBar playerParametersBar;
+
+        public void TakeDamage(int damage)
         {
-            if (health <= 0)
+            healths -= damage;
+
+            if (healths <= 0)
             {
-                Debug.Log("Конец!");
+                Dead();
             }
         }
 
-        protected override void GiveDamage()
+        private void Start()
         {
-            throw new System.NotImplementedException();
+            playerParametersBar.IncreaseHealth(healths); //Add health value in the text UI 
+        }
+
+        protected override void Dead()
+        {
+            Debug.Log("Конец!");
         }
 
         protected override void RaiseLevel()
         {
-            throw new System.NotImplementedException();
+            Debug.Log("Уровень повышен!");
         }
 
-        protected override void TakeExperience()
+        protected override void TakeExperience(float experience)
         {
-            throw new System.NotImplementedException();
+            Debug.Log("Расту!");
         }
     }
 }
